@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"flo.com.tr/types"
 	"fmt"
 	_ "github.com/lib/pq"
 )
@@ -25,35 +26,24 @@ func main() {
 	defer rows.Close()
 	defer conn.Close()
 
-	var markalar Markalar
+	var markalar types.Markalar
 	for rows.Next() {
-		var marka Marka
+		var marka types.Marka
 
-		rowError := rows.Scan(&marka.name, &marka.id, &marka.is_active)
+		rowError := rows.Scan(&marka.Name, &marka.Id, &marka.Is_active)
 		if rowError != nil {
 			fmt.Println(rowError.Error())
 		}
 
-		markalar = append(markalar, marka)
+		markalar = append(types.Markalar{}, marka)
 	}
 
 	for _, mrk := range markalar {
 		fmt.Println(mrk)
 	}
 
-	testMarka := Marka{id: 11, name: "Nike", is_active: true}
-	testMarka.updateMarkaName("New Nike")
+	testMarka := types.Marka{Id: 11, Name: "Nike", Is_active: true}
+	// receiver function, strcutın bir metotuymuşçasına
+	testMarka.UpdateMarkaName("New Nike")
 	fmt.Println(testMarka)
 }
-
-func (currentMarka *Marka) updateMarkaName(newName string) {
-	currentMarka.name = newName
-}
-
-type Marka struct {
-	id        int
-	name      string
-	is_active bool
-}
-
-type Markalar []Marka

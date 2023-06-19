@@ -1,0 +1,4 @@
+go mod init flo.com.tr/types // modul oluşturma
+touch types.go //dosya oluşturma
+go mod edit --replace flo.com.tr/types./types // versiyonlamadan modül kullanma
+go mod tidy // pseudo verisyonlama ypaıyor
