@@ -2,12 +2,25 @@ package main
 
 import (
 	"database/sql"
+	_interface "flo.com.tr/interfaces"
 	"flo.com.tr/types"
 	"fmt"
 	_ "github.com/lib/pq"
 )
 
 func main() {
+	var logObject _interface.ElkLogMessage
+	logObject.Message = "Will be logged to ELK"
+	logObject.Log()
+
+	var logObject2 _interface.DbLogMessage
+	logObject2.Message = "Will be logged to DB"
+	logObject2.Log()
+
+	var lo _interface.LogMessage
+	lo = &logObject2
+	lo.Log()
+
 	connStr := "postgres://postgres:P@ssw0rd@localhost/pabuccucom?sslmode=disable"
 	conn, _ := sql.Open("postgres", connStr)
 	result := conn.Ping()
