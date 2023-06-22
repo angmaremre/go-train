@@ -1,0 +1,10 @@
+<html>
+<title></title>
+<body>
+<ul>
+{{range .}}
+<li>{{.Id}} - {{.Name}} - {{.Is_active}}</li>
+{{end}}
+</ul>
+</body>
+</html>
