@@ -30,6 +30,13 @@ func main() {
 				fmt.Println(line)
 			}
 			//io.WriteString(connection, "Merhaba nbr")
+			var responseBody = "<html><title></title><body>FLOOOO</body></html>"
+			connection.Write([]byte("HTTP/1.1 200 OK\r\n"))
+			connection.Write([]byte(fmt.Sprintf("Contect-Lenght: #{len(responseBody)}\r\n")))
+			fmt.Fprintf(connection, "Content-Type: text/html\r\n")
+			fmt.Fprintf(connection, "\r\n")
+			fmt.Fprintf(connection, responseBody)
+			fmt.Println("")
 			connection.Close()
 		}
 	}
