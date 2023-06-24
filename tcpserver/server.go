@@ -1,8 +1,8 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io"
 	"net"
 )
 
@@ -21,7 +21,15 @@ func main() {
 			connection.Close()
 			continue
 		} else {
-			io.WriteString(connection, "Merhaba nbr")
+			scanner := bufio.NewScanner(connection)
+			for scanner.Scan() {
+				var line = scanner.Text()
+				if line == "" {
+					break
+				}
+				fmt.Println(line)
+			}
+			//io.WriteString(connection, "Merhaba nbr")
 			connection.Close()
 		}
 	}
